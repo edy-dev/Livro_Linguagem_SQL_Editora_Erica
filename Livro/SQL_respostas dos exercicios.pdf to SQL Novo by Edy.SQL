@@ -32,13 +32,13 @@ GO
 ALTER TABLE  [dbo].[Veiculo] DROP COLUMN [motor];
 GO
 -- 6. 
-CREATE INDEX [VeiculoMarcaModelo] ON  [dbo].[Veiculo] ([marca], [modelo]); 
+CREATE INDEX [VeiculoMarcaModelo] ON [dbo].[Veiculo]([marca], [modelo]); 
 GO
 -- 7. 
-CREATE INDEX [VeiculoAnoFabricacao] ON  [dbo].[Veiculo] ([anoFabricacao] DESC);
+CREATE INDEX [VeiculoAnoFabricacao] ON [dbo].[Veiculo]([anoFabricacao] DESC);
 GO
 -- 8. 
-DROP INDEX [VeiculoMarcaModelo] ON  [dbo].[Veiculo]; 
+DROP INDEX [VeiculoMarcaModelo] ON [dbo].[Veiculo]; 
 -- 9. 
 DROP TABLE  [dbo].[Veiculo];
 GO
@@ -50,106 +50,83 @@ GO
 -----------------------------------
 -- Capítulo 2
 -- 1. 
-CREATE DATABASE [Recursos_Humanos]; 
+CREATE DATABASE [RecursosHumanos]; 
 GO
-USE [Recursos_Humanos];
+USE [RecursosHumanos];
 GO
 DROP TABLE IF EXISTS [dbo].[Funcionario];
 GO
 CREATE TABLE [dbo].[Funcionario]
 (
-	[idFuncionario] INT         NOT NULL,
-	[nome]          VARCHAR(50)     NULL,
-	[endereco]      VARCHAR(100)    NULL,
-	[cidade]        VARCHAR(50)     NULL,
-	[estado]        CHAR(2)         NULL,
-	[email]         VARCHAR(50)     NULL,
-	[dataNascto]    DATE            NULL,
-	[salario]       DECIMAL(7,2)    NULL,
-	[cargo]        VARCHAR(2)      NULL,
-    [ativo]         BIT             NULL,
+	[idFuncionario] INT          NOT NULL,
+	[nome]          VARCHAR(50)      NULL,
+	[endereco]      VARCHAR(100)     NULL,
+	[cidade]        VARCHAR(50)      NULL,
+	[estado]        CHAR(2)          NULL,
+	[email]         VARCHAR(50)      NULL,
+	[dataNascto]    DATE             NULL,
+	[salario]       DECIMAL(7,2)     NULL,
+	[cargo]         VARCHAR(2)       NULL,
+    [ativo]         BIT              NULL,
 	CONSTRAINT [PK_Funcionario_IdFuncionario] PRIMARY KEY ([IdFuncionario])
 );
 GO
 INSERT INTO [dbo].[Funcionario]([idFuncionario], [nome], [endereco], [cidade], [estado], [email], [dataNascto])
 VALUES 
-(5, 'Carlos Dias', 'Av. Lapa, 121', 'Itu', 'SP', 'carlao@gmail.com','1990-03-31'); 
-GO
-INSERT INTO [dbo].[Funcionario]([idFuncionario], [nome], [endereco], [cidade], [estado], [email], [dataNascto])
-VALUES
-(6, 'Ana Maria da Cunha', 'Av. São Paulo, 388', 'Itu', 'SP','aninhacunha@gmail.com', '1988-04-12'); 
-GO
-INSERT INTO [dbo].[Funcionario]([idFuncionario], [nome], [endereco], [cidade], [estado], [email], [dataNascto])
-VALUES 
-(7, 'Cláudia Regina Martins', 'Rua Holanda, 89', 'Campinas', 'SP','cregina@gmail.com', '1988-12-04'); 
-GO
-INSERT INTO [dbo].[Funcionario]([idFuncionario], [nome], [endereco], [cidade], [estado], [email], [dataNascto])
-VALUES 
-(8, 'Marcela Tatho', 'Rua Bélgica, 43', 'Campinas', 'SP','marctatho@hotmail.com', '1987-11-09'); 
-GO
-INSERT INTO [dbo].[Funcionario]([idFuncionario], [nome], [endereco], [cidade], [estado], [email], [dataNascto])
-VALUES
-(9, 'Jorge Luis Rodrigues', 'Av. da Saudade, 1989', 'São Paulo','SP', 'jorgeluis@yahoo.com.br', '1990-05-05'); 
-GO
-INSERT INTO [dbo].[Funcionario]([idFuncionario], [nome], [endereco], [cidade], [estado], [email], [dataNascto])
-VALUES 
-(10, 'Ana Paulo Camargo', 'Rua Costa e Silva', 'Jundiaí', 'SP','apcamargo@gmail.com', '1991-06-30'); 
-GO
-INSERT INTO [dbo].[Funcionario]([idFuncionario], [nome], [endereco], [cidade], [estado], [email], [dataNascto])
-VALUES 
-(11, 'Ivo Cunha', 'Av. Raio de Luz, 100', 'Campinas', 'SP', 'ivo@bol.com.br', '1987-04-11'); 
-GO
-INSERT INTO [dbo].[Funcionario]([idFuncionario], [nome], [endereco], [cidade], [estado], [email], [dataNascto])
-VALUES 
-(12, 'Carlos Luis de Souza', 'Rua Nicolau Coelho, 22', 'São Paulo','SP', 'cls@bol.com.br', '1988-04-30'); 
+(5, 'Carlos Dias', 'Av. Lapa, 121', 'Itu', 'SP', 'carlao@gmail.com','1990-03-31'),
+(6, 'Ana Maria da Cunha', 'Av. São Paulo, 388', 'Itu', 'SP','aninhacunha@gmail.com', '1988-04-12'),
+(7, 'Cláudia Regina Martins', 'Rua Holanda, 89', 'Campinas', 'SP','cregina@gmail.com', '1988-12-04'),
+(8, 'Marcela Tatho', 'Rua Bélgica, 43', 'Campinas', 'SP','marctatho@hotmail.com', '1987-11-09'),
+(9, 'Jorge Luis Rodrigues', 'Av. da Saudade, 1989', 'São Paulo','SP', 'jorgeluis@yahoo.com.br', '1990-05-05'),
+(10, 'Ana Paulo Camargo', 'Rua Costa e Silva', 'Jundiaí', 'SP','apcamargo@gmail.com', '1991-06-30'),
+(11, 'Ivo Cunha', 'Av. Raio de Luz, 100', 'Campinas', 'SP', 'ivo@bol.com.br', '1987-04-11'),
+(12, 'Carlos Luis de Souza', 'Rua Nicolau Coelho, 22', 'São Paulo','SP', 'cls@bol.com.br', '1988-04-30');
 GO
 -- 2. 
-
-UPDATE [dbo].[Funcionario] SET [cidade] = 'Valinhos' WHERE [cidade] = 'Itu';
+UPDATE [dbo].[Funcionario] SET [dbo].[Funcionario].[cidade] = ('Valinhos') WHERE [dbo].[Funcionario].[cidade] = ('Itu');
 GO 
 -- 3. 
-UPDATE [dbo].[Funcionario] SET [cargo] = 'AI', [salario] = (1100) WHERE [cidade] = ('Valinhos');
+UPDATE [dbo].[Funcionario] SET [dbo].[Funcionario].[cargo] = ('AI'), [dbo].[Funcionario].[salario] = (1100) WHERE [dbo].[Funcionario].[cidade] = ('Valinhos');
 GO 
-UPDATE [dbo].[Funcionario] SET [cargo] = 'PC', [salario] = (1700) WHERE [cidade] = ('Campinas'); 
+UPDATE [dbo].[Funcionario] SET [dbo].[Funcionario].[cargo] = ('PC'), [dbo].[Funcionario].[salario] = (1700) WHERE [dbo].[Funcionario].[cidade] = ('Campinas'); 
 GO
-UPDATE [dbo].[Funcionario] SET [cargo] = 'TI', [salario] = (750)  WHERE [cidade] = ('Jundiaí');
+UPDATE [dbo].[Funcionario] SET [dbo].[Funcionario].[cargo] = ('TI'), [dbo].[Funcionario].[salario] = (750)  WHERE [dbo].[Funcionario].[cidade] = ('Jundiaí');
 GO 
 -- 4. 
 SELECT [F].[nome], [F].[cargo] FROM [dbo].[Funcionario] AS [F]; 
 -- 5. 
-SELECT [F].[idFuncionario], [F].[email] FROM [dbo].[Funcionario] AS [F] WHERE [estado] = ('SP'); 
+SELECT [F].[idFuncionario], [F].[email] FROM [dbo].[Funcionario] AS [F] WHERE [F].[estado] = ('SP'); 
 -- 6. 
-DELETE FROM [dbo].[Funcionario] WHERE [idFuncionario] = (5); 
+DELETE FROM [dbo].[Funcionario] WHERE [dbo].[Funcionario].[idFuncionario] = (5); 
 -- 7. 
-SELECT DISTINCT [F].[cidade], [F].[estado] FROM [dbo].[Funcionario] AS [F] WHERE [cargo] = ('PC'); 
-SELECT [F].* FROM [dbo].[Funcionario] AS [F];
+SELECT DISTINCT [F].[cidade], [F].[estado] FROM [dbo].[Funcionario] AS [F] WHERE [F].[cargo] = ('PC'); 
 -----------------------------------
 -- Capítulo 3 
 -- 1. 
-SELECT nome, salario*1.30 FROM Funcionario 
+SELECT [F].[nome], (([F].[salario]) * (1.30)) AS [SalarioMais30%] FROM [dbo].[Funcionario] AS [F]; 
 -- 2. 
-SELECT nome, salario, salario*0.80 FROM Funcionario WHERE cidade = ‘Campinas’ 
+SELECT [F].[nome], [F].[salario], (([F].[salario]) * (0.80)) AS [SalarioMenos20%] FROM [dbo].[Funcionario] AS [F] WHERE [F].[cidade] = ('Campinas');
 -- 3. 
-SELECT nome, salario FROM Funcionario WHERE salario > 1500 
+SELECT [F].[nome], [F].[salario] FROM [dbo].[Funcionario] AS [F] WHERE [F].[salario] > (1500); 
 -- 4. 
-SELECT nome, cidade FROM Funcionario WHERE NOT cidade=’Valinhos’ 
+SELECT [F].[nome], [F].[cidade] FROM [dbo].[Funcionario] AS [F] WHERE NOT [F].[cidade] = ('Valinhos');
 -- 5. 
-SELECT idFuncionario, cidade FROM Funcionario WHERE cidade=’Valinhos’ OR cidade=’Campinas’ 
+SELECT [F].[idFuncionario], [F].[cidade] FROM [dbo].[Funcionario] AS [F] WHERE [F].[cidade] = ('Valinhos') OR [F].[cidade] = ('Campinas');
 -- 6. 
-SELECT idFuncionario, cargoFROM Funcionario WHERE NOT cidade=’São Paulo’ AND salario >= 1000 
+SELECT [F].[idFuncionario], [F].[cargo] FROM [dbo].[Funcionario] AS [F] WHERE NOT [F].[cidade] = ('São Paulo') AND [F].[salario] >= (1000); 
 -- 7. 
-SELECT nome FROM Funcionario WHERE cargo IS NOT NULL 
+SELECT [F].[nome] FROM [dbo].[Funcionario] AS [F] WHERE [F].[cargo] IS NOT NULL;
 -- 8. 
-SELECT nome, salario FROM Funcionario WHERE salario BETWEEN 500 AND 1500 
+SELECT [F].[nome], [F].[salario] FROM [dbo].[Funcionario] AS [F] WHERE [F].[salario] BETWEEN (500) AND (1500); 
 -- 9. 
-SELECT nome, email FROM Funcionario WHERE email LIKE ‘%hotmail%’ 
+SELECT [F].[nome], [F].[email] FROM  [dbo].[Funcionario] AS [F] WHERE [F].[email] LIKE ('%hotmail%'); 
 -- 10. 
-SELECT nome, email FROM Funcionario WHERE email LIKE ‘%.br’ ORDER BY nome 
+SELECT [F].[nome], [F].[email] FROM  [dbo].[Funcionario] AS [F] WHERE [F].[email] LIKE ('%.br') ORDER BY [F].[nome]; 
 -- 11. 
-SELECT nome, email FROM Funcionario WHERE email NOT LIKE ‘%.com’ ORDER BY nome 
+SELECT [F].[nome], [F].[email] FROM  [dbo].[Funcionario] AS [F] WHERE [F].[email] NOT LIKE ('%.com') ORDER BY [F].[nome]; 
 -- 12. 
-SELECT nome, email FROM Funcionario WHERE email LIKE ‘__r%’ 
-
+SELECT [F].[nome], [F].[email] FROM  [dbo].[Funcionario] AS [F] WHERE [F].[email] LIKE ('__r%') ORDER BY [F].[nome]; 
+-----------------------------------
 -- Capítulo 4 
 -- 1. 
 SELECT nome, DAY(dataNascto) dia, MONTH(dataNascto) mes,YEAR(dataNascto) ano FROM Funcionario 
