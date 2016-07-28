@@ -1,6 +1,7 @@
 -----------
 #Livro: Linguagem SQL
 Guia Prático de Aprendizagem - Editora Erica
+![CapaLivro.jpg](https://github.com/edleyrocha/Livro_Linguagem_SQL_Editora_Erica/blob/master/Livro/CapaLivro.jpg)
 <br/>
 
 #### SGBD

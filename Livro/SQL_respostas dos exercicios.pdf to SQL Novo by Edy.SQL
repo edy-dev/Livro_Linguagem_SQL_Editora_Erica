@@ -154,28 +154,31 @@ GO
 -----------------------------------
 -- Capítulo 4 
 -- 1. 
-SELECT [F].[nome], (DAY([F].[dataNascto])) AS [diaNacimento], (MONTH([F].[dataNascto])) AS [mesNacimento], (YEAR([F].[dataNascto])) AS [anoNacimento] FROM [dbo].[Funcionario] AS [F]; 
+SET DATEFORMAT DMY;
+SET LANGUAGE N'Português (Brasil)';
+GO
+SELECT [F].[nome], DAY([F].[dataNascto]) AS [diaNacimento], MONTH([F].[dataNascto]) AS [mesNacimento], YEAR([F].[dataNascto]) AS [anoNacimento] FROM [dbo].[Funcionario] AS [F]; 
 GO
 -- 2. 
-SELECT DISTINCT (DATENAME(MONTH,[F].[dataNascto])) AS [Nome_Mes] FROM [dbo].[Funcionario] AS [F] ORDER BY [Nome_Mes];
+SELECT DISTINCT DATENAME(MONTH,[F].[dataNascto]) AS [Nome_Mes] FROM [dbo].[Funcionario] AS [F] ORDER BY [Nome_Mes];
 GO
 -- 3. 
-SELECT [F].[idFuncionario], [F].[nome] FROM [dbo].[Funcionario] AS [F] WHERE (YEAR([F].[dataNascto])) = (1987);
+SELECT [F].[idFuncionario], [F].[nome] FROM [dbo].[Funcionario] AS [F] WHERE YEAR([F].[dataNascto]) = (1987);
 GO
 -- 4. 
-SELECT [F].[nome], (DAY([F].[dataNascto])) AS [diaNacimento] FROM [dbo].[Funcionario] AS [F] WHERE (MONTH([F].[dataNascto])) = (4) AND (YEAR([F].[dataNascto])) = (1988) 
+SELECT [F].[nome], DAY([F].[dataNascto]) AS [diaNacimento] FROM [dbo].[Funcionario] AS [F] WHERE MONTH([F].[dataNascto]) = (4) AND YEAR([F].[dataNascto]) = (1988) 
 GO
 -- 5. 
-SELECT [F].[nome], (DATEADD(MONTH, 2, [F].[dataNascto])) AS [ADD_Nacimento] FROM [dbo].[Funcionario] AS [F];
+SELECT [F].[nome], DATEADD(MONTH, 2, [F].[dataNascto]) AS [ADD_Nacimento] FROM [dbo].[Funcionario] AS [F];
 GO
 -- 6. 
-SELECT [F].[nome], (DATEDIFF(YEAR, [F].[dataNascto], GETDATE())) AS [DIF_Nacimento] FROM [dbo].[Funcionario] AS [F]; 
+SELECT [F].[nome], DATEDIFF(YEAR, [F].[dataNascto], GETDATE()) AS [DIF_Nacimento] FROM [dbo].[Funcionario] AS [F]; 
 GO
 -- 7. 
-SELECT [F].[idFuncionario], [F].[nome], (YEAR([F].[dataNascto])) AS [dataNacimento] FROM [dbo].[Funcionario] AS [F] WHERE MONTH([F].[dataNascto]) BETWEEN (3) AND (5) AND YEAR([F].[dataNascto]) = (1990); 
+SELECT [F].[idFuncionario], [F].[nome], YEAR([F].[dataNascto]) AS [dataNacimento] FROM [dbo].[Funcionario] AS [F] WHERE MONTH([F].[dataNascto]) BETWEEN (3) AND (5) AND YEAR([F].[dataNascto]) = (1990); 
 GO
 -- 8. 
-SELECT [F].[nome], (YEAR([F].[dataNascto])) AS [dataNascto] FROM [dbo].[Funcionario] AS [F] WHERE [F].[estado] = ('SP'); 
+SELECT [F].[nome], YEAR([F].[dataNascto]) AS [dataNascto] FROM [dbo].[Funcionario] AS [F] WHERE [F].[estado] = ('SP'); 
 GO
 -- 9. 
 SELECT [F].[nome] FROM [dbo].[Funcionario] AS [F] WHERE YEAR([F].[dataNascto]) < (1990); 
@@ -195,76 +198,93 @@ GO
 SELECT [F].[nome], ([F].[salario] + PI()) AS [Salario+PI] FROM [dbo].[Funcionario] AS [F];
 GO 
 -- 2. 
-SELECT (SQRT(DAY([F].[dataNascto]))) AS [RAIZ_dataNascto] FROM [dbo].[Funcionario] AS [F] WHERE [F].[cidade] = ('Valinhos'); 
+SELECT SQRT(DAY([F].[dataNascto])) AS [RAIZ_dataNascto] FROM [dbo].[Funcionario] AS [F] WHERE [F].[cidade] = ('Valinhos'); 
 GO
 -- 3. 
-SELECT (LOG(MONTH(dataNascto))) AS [LOG_dataNascto] FROM [dbo].[Funcionario] AS [F] WHERE YEAR([F].[dataNascto]) = (1990); 
+SELECT LOG(MONTH([F].[dataNascto])) AS [LOG_dataNascto] FROM [dbo].[Funcionario] AS [F] WHERE YEAR([F].[dataNascto]) = (1990); 
 GO
 -- 4. 
-SELECT [F].[nome], (DAY([F].[dataNascto])) AS [DIA_dataNascto] FROM [dbo].[Funcionario] AS [F] WHERE POWER(DAY([F].[dataNascto]),(3)) >= (1000);
+SELECT [F].[nome], DAY([F].[dataNascto]) AS [DIA_dataNascto] FROM [dbo].[Funcionario] AS [F] WHERE POWER(DAY([F].[dataNascto]),(3)) >= (1000);
 GO
 -- 5. 
 SELECT (ROUND(([F].[salario] * 1.156),0)) AS [salario] FROM [dbo].[Funcionario] AS [F] WHERE [F].[salario] > (1000);
 GO 
 -- 6. 
-SELECT (ABS((1500) - ([F].[salario]))) AS [ABS_Salario] FROM [dbo].[Funcionario] AS [F];
+SELECT ABS(1500 - [F].[salario]) AS [ABS_Salario] FROM [dbo].[Funcionario] AS [F];
 GO
 -- 7. 
-SELECT [F].[idFuncionario], (SQRT(idFuncionario)) AS [SQRT_idFuncionario] FROM [dbo].[Funcionario] AS [F] WHERE [F].[dataNascto] < '1989-04-01' 
+SELECT [F].[idFuncionario], SQRT([F].[idFuncionario]) AS [SQRT_idFuncionario] FROM [dbo].[Funcionario] AS [F] WHERE [F].[dataNascto] < ('1989-04-01'); 
 GO
 -- 8. 
 SELECT [F].[nome], ROUND((salario * 0.65),1) AS [ROUND_salario] FROM [dbo].[Funcionario] AS [F]; 
 GO
 -- 9. 
-SELECT (LOG([F].[idFuncionario])) AS [LOG_idFuncionario] FROM [dbo].[Funcionario] AS [F];  
+SELECT LOG([F].[idFuncionario]) AS [LOG_idFuncionario] FROM [dbo].[Funcionario] AS [F];  
 GO
 -- 10. 
-SELECT (SQRT([F].[idFuncionario])) AS [SQRT_idFuncionario] FROM [dbo].[Funcionario] AS [F];   
+SELECT SQRT([F].[idFuncionario]) AS [SQRT_idFuncionario] FROM [dbo].[Funcionario] AS [F];   
 GO
 -- 11. 
-SELECT (POWER([F].[idFuncionario],2)) AS [POWER_idFuncionario] FROM [dbo].[Funcionario] AS [F];   
+SELECT POWER([F].[idFuncionario],2) AS [POWER_idFuncionario] FROM [dbo].[Funcionario] AS [F];   
 GO
 -- 12. 
-SELECT (ABS([F].[idFuncionario] - 10)) AS [ABS_idFuncionario] FROM [dbo].[Funcionario] AS [F] ORDER BY [ABS_idFuncionario] DESC;
+SELECT ABS([F].[idFuncionario] - 10) AS [ABS_idFuncionario] FROM [dbo].[Funcionario] AS [F] ORDER BY [ABS_idFuncionario] DESC;
 GO
 -----------------------------------
 -- Capítulo 6 
 -- 1. 
-SELECT UPPER(nome)FROM Funcionario 
+SELECT UPPER([F].[nome]) AS [nome] FROM [dbo].[Funcionario] AS [F];
+GO
 -- 2. 
-SELECT DISTINCT DATENAME(MONTH,dataNascto),LEN(DATENAME(MONTH,dataNascto))FROM Funcionario 
+SELECT DISTINCT DATENAME(MONTH,[F].[dataNascto]) AS [DATENAME_dataNascto], LEN(DATENAME(MONTH,[F].[dataNascto])) AS [LEN_dataNascto] FROM [dbo].[Funcionario] AS [F]; 
+GO
 -- 3. 
-SELECT REPLACE(nome,’ ‘,’-’)FROM Funcionario 
+SELECT REPLACE([F].[nome],' ','-') AS [nome] FROM [dbo].[Funcionario] AS [F];
+GO  
 -- 4. 
-SELECT LEFT(nome,3), RIGHT(nome,3)FROM Funcionario 
+SELECT LEFT([F].[nome],3) AS [LEFT_nome], RIGHT([F].[nome],3) AS [RIGHT_nome] FROM [dbo].[Funcionario] AS [F];
+GO   
 -- 5. 
-SELECT SQRT(LEN(nome))FROM Funcionario 
+SELECT SQRT(LEN([F].[nome])) AS [SQRT_nome] FROM [dbo].[Funcionario] AS [F];
+GO 
 -- 6. 
-SELECT DISTINCT SUBSTRING(cidade,3,5)FROM Funcionario 
+SELECT DISTINCT SUBSTRING([F].[cidade],3,5) AS [DISTINCT_cidade] FROM [dbo].[Funcionario] AS [F];
+GO 
 -- 7. 
-SELECT DISTINCT SUBSTRING(cidade,3,5)FROM Funcionario 
+SELECT REPLACE([F].[nome],' ','') AS [nome] FROM [dbo].[Funcionario] AS [F];
+GO 
 -- 8. 
-SELECT CHAR(idFuncionario)FROM Funcionario WHERE cidade=’Campinas’ 
+SELECT CHAR([F].[idFuncionario]) AS [CHAR_idFuncionario] FROM [dbo].[Funcionario] AS [F] WHERE [F].[cidade] = ('Campinas');
+GO 
 -- 9. 
-SELECT ASCII(nome)FROM Funcionario WHERE DAY(dataNascto)> 20 
+SELECT ASCII([F].[nome]) AS [ASCII_nome] FROM [dbo].[Funcionario] AS [F] WHERE DAY([F].[dataNascto]) > (20); 
+GO
 -- 10. 
-SELECT RTRIM(LEFT(cidade,4))FROM Funcionario 
+SELECT RTRIM(LEFT([F].[cidade],4)) AS [RTRIM_cidade] FROM [dbo].[Funcionario] AS [F];
+GO
 -- 11. 
-SELECT LTRIM(RIGHT(cidade,6))FROM Funcionario 
+SELECT LTRIM(RIGHT([F].[cidade],6)) AS [LTRIM_cidade] FROM [dbo].[Funcionario] AS [F];
+GO
 -- 12. 
-SELECT DISTINCT LOWER(cidade)FROM Funcionario 
-
+SELECT DISTINCT LOWER([F].[cidade]) AS [DISTINCT_cidade] FROM [dbo].[Funcionario] AS [F];
+GO
+-----------------------------------
 -- Capítulo 7 
 -- 1. 
 SELECT MAX(salario), MIN(salario)FROM Funcionario WHERE estado=’SP’ 
+GO
 -- 2. 
 SELECT SUM(salario)FROM Funcionario WHERE nome LIKE ‘%Cunha’ 
+GO
 -- 3. 
 SELECT AVG(salario)FROM Funcionario WHERE email LIKE ‘%yahoo%’ 
+GO
 -- 4. 
 SELECT COUNT(*)FROM Funcionario WHERE email LIKE ‘%br’ 
+GO
 -- 5. 
 SELECT MIN(dataNascto)FROM Funcionario 
+GO
 -- 6. 
 SELECT MAX(dataNascto) AS Maior_Nascimento FROM Funcionario 
 -- 7. 
