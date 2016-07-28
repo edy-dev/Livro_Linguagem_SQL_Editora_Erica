@@ -271,35 +271,42 @@ GO
 -----------------------------------
 -- Capítulo 7 
 -- 1. 
-SELECT MAX(salario), MIN(salario)FROM Funcionario WHERE estado=’SP’ 
+SELECT MAX([F].[salario]) AS [MAX_salario], MIN([F].[salario]) AS [MIN_salario] FROM [dbo].[Funcionario] AS [F] WHERE [F].[estado] = ('SP'); 
 GO
 -- 2. 
-SELECT SUM(salario)FROM Funcionario WHERE nome LIKE ‘%Cunha’ 
+SELECT SUM([F].[salario]) AS [SUM_salario] FROM [dbo].[Funcionario] AS [F] WHERE [F].[nome] LIKE ('%Cunha'); 
 GO
 -- 3. 
-SELECT AVG(salario)FROM Funcionario WHERE email LIKE ‘%yahoo%’ 
+SELECT AVG([F].[salario]) AS [AVG_salario] FROM [dbo].[Funcionario] AS [F] WHERE [F].[email] LIKE ('%yahoo%'); 
 GO
 -- 4. 
-SELECT COUNT(*)FROM Funcionario WHERE email LIKE ‘%br’ 
+SELECT COUNT(*) FROM [dbo].[Funcionario] AS [F] WHERE [F].[email] LIKE ('%br'); 
 GO
 -- 5. 
-SELECT MIN(dataNascto)FROM Funcionario 
+SELECT MIN([F].[dataNascto]) AS [MIN_dataNascto] FROM [dbo].[Funcionario] AS [F]; 
 GO
 -- 6. 
-SELECT MAX(dataNascto) AS Maior_Nascimento FROM Funcionario 
+SELECT MAX([F].[dataNascto]) AS [MAX_dataNascto] FROM [dbo].[Funcionario] AS [F];
+GO 
 -- 7. 
-SELECT COUNT(*) AS Quantidade_de_ValinhosFROM Funcionario WHERE cidade=’Valinhos’ 
+SELECT COUNT(*) AS [Quantidade_de_Valinhos] FROM [dbo].[Funcionario] AS [F] WHERE [F].[cidade] = ('Valinhos'); 
+GO
 -- 8. 
-SELECT SUM(salario)FROM Funcionario WHERE cidade=’Campinas’ 
+SELECT SUM([F].[salario]) AS [SUM_salario] FROM [dbo].[Funcionario] AS [F] WHERE [F].[cidade] = ('Campinas');
+GO
 -- 9. 
-SELECT AVG(salario)FROM Funcionario WHERE cidade=’São Paulo’ 
+SELECT AVG([F].[salario]) AS [AVG_salario] FROM [dbo].[Funcionario] AS [F] WHERE [F].[cidade] = ('São Paulo');
+GO
 -- 10. 
-SELECT SUM(salario)FROM Funcionario WHERE nome LIKE ‘Ana%’ 
+SELECT SUM([F].[salario]) AS [SUM_salario] FROM [dbo].[Funcionario] AS [F] WHERE [F].[nome] LIKE ('Ana%');
+GO
 -- 11. 
-SELECT COUNT(*)FROM Funcionario WHERE nome LIKE ‘%Luis%’ 
+SELECT COUNT(*) FROM [dbo].[Funcionario] AS [F] WHERE [F].[nome] LIKE ('%Luis%');
+GO
 -- 12. 
-SELECT MIN(salario), MAX(salario)FROM Funcionario WHERE endereco LIKE ‘Av. São Paulo%’ 
-
+SELECT MIN([F].[salario]) AS [MIN_salario], MAX([F].[salario]) AS [MIN_salario] FROM [dbo].[Funcionario] AS [F] WHERE [F].[endereco] LIKE ('Av. São Paulo%');
+GO
+-----------------------------------
 -- Capítulo 8 
 -- 1. 
 SELECT cargo, COUNT(*) AS quantidadeFROM Funcionario GROUP BY cargoORDER BY quantidade 
