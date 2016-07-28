@@ -6,6 +6,10 @@
 -----------------------------------
 -- Capítulo 1
 -- 1. 
+USE [master];
+GO
+DROP DATABASE IF EXISTS [Concessionaria];
+GO
 CREATE DATABASE [Concessionaria]; 
 GO
 -- 2. 
@@ -38,18 +42,23 @@ GO
 CREATE INDEX [VeiculoAnoFabricacao] ON [dbo].[Veiculo]([anoFabricacao] DESC);
 GO
 -- 8. 
-DROP INDEX [VeiculoMarcaModelo] ON [dbo].[Veiculo]; 
+DROP INDEX [VeiculoMarcaModelo] ON [dbo].[Veiculo];
+GO 
 -- 9. 
 DROP TABLE  [dbo].[Veiculo];
 GO
 -- 10. 
-USE master;
+USE [master];
 GO
 DROP DATABASE [Concessionaria];
 GO
 -----------------------------------
 -- Capítulo 2
 -- 1. 
+USE [master];
+GO
+DROP DATABASE IF EXISTS [RecursosHumanos];
+GO
 CREATE DATABASE [RecursosHumanos]; 
 GO
 USE [RecursosHumanos];
@@ -93,94 +102,132 @@ GO
 UPDATE [dbo].[Funcionario] SET [dbo].[Funcionario].[cargo] = ('TI'), [dbo].[Funcionario].[salario] = (750)  WHERE [dbo].[Funcionario].[cidade] = ('Jundiaí');
 GO 
 -- 4. 
-SELECT [F].[nome], [F].[cargo] FROM [dbo].[Funcionario] AS [F]; 
+SELECT [F].[nome], [F].[cargo] FROM [dbo].[Funcionario] AS [F];
+GO 
 -- 5. 
-SELECT [F].[idFuncionario], [F].[email] FROM [dbo].[Funcionario] AS [F] WHERE [F].[estado] = ('SP'); 
+SELECT [F].[idFuncionario], [F].[email] FROM [dbo].[Funcionario] AS [F] WHERE [F].[estado] = ('SP');
+GO 
 -- 6. 
-DELETE FROM [dbo].[Funcionario] WHERE [dbo].[Funcionario].[idFuncionario] = (5); 
+DELETE FROM [dbo].[Funcionario] WHERE [dbo].[Funcionario].[idFuncionario] = (5);
+GO 
 -- 7. 
-SELECT DISTINCT [F].[cidade], [F].[estado] FROM [dbo].[Funcionario] AS [F] WHERE [F].[cargo] = ('PC'); 
+SELECT DISTINCT [F].[cidade], [F].[estado] FROM [dbo].[Funcionario] AS [F] WHERE [F].[cargo] = ('PC');
+GO 
 -----------------------------------
 -- Capítulo 3 
 -- 1. 
-SELECT [F].[nome], (([F].[salario]) * (1.30)) AS [SalarioMais30%] FROM [dbo].[Funcionario] AS [F]; 
+SELECT [F].[nome], (([F].[salario]) * (1.30)) AS [SalarioMais30%] FROM [dbo].[Funcionario] AS [F];
+GO 
 -- 2. 
-SELECT [F].[nome], [F].[salario], (([F].[salario]) * (0.80)) AS [SalarioMenos20%] FROM [dbo].[Funcionario] AS [F] WHERE [F].[cidade] = ('Campinas');
+SELECT [F].[nome], [F].[salario], (([F].[salario]) * (0.80)) AS [salarioMenos20%] FROM [dbo].[Funcionario] AS [F] WHERE [F].[cidade] = ('Campinas');
+GO
 -- 3. 
-SELECT [F].[nome], [F].[salario] FROM [dbo].[Funcionario] AS [F] WHERE [F].[salario] > (1500); 
+SELECT [F].[nome], [F].[salario] FROM [dbo].[Funcionario] AS [F] WHERE [F].[salario] > (1500);
+GO 
 -- 4. 
 SELECT [F].[nome], [F].[cidade] FROM [dbo].[Funcionario] AS [F] WHERE NOT [F].[cidade] = ('Valinhos');
+GO
 -- 5. 
 SELECT [F].[idFuncionario], [F].[cidade] FROM [dbo].[Funcionario] AS [F] WHERE [F].[cidade] = ('Valinhos') OR [F].[cidade] = ('Campinas');
+GO
 -- 6. 
-SELECT [F].[idFuncionario], [F].[cargo] FROM [dbo].[Funcionario] AS [F] WHERE NOT [F].[cidade] = ('São Paulo') AND [F].[salario] >= (1000); 
+SELECT [F].[idFuncionario], [F].[cargo], [F].[salario] FROM [dbo].[Funcionario] AS [F] WHERE NOT [F].[cidade] = ('São Paulo') AND [F].[salario] >= (1000);
+GO 
 -- 7. 
 SELECT [F].[nome] FROM [dbo].[Funcionario] AS [F] WHERE [F].[cargo] IS NOT NULL;
+GO
 -- 8. 
-SELECT [F].[nome], [F].[salario] FROM [dbo].[Funcionario] AS [F] WHERE [F].[salario] BETWEEN (500) AND (1500); 
+SELECT [F].[nome], [F].[salario] FROM [dbo].[Funcionario] AS [F] WHERE [F].[salario] BETWEEN (500) AND (1500);
+GO 
 -- 9. 
-SELECT [F].[nome], [F].[email] FROM  [dbo].[Funcionario] AS [F] WHERE [F].[email] LIKE ('%hotmail%'); 
+SELECT [F].[nome], [F].[email] FROM  [dbo].[Funcionario] AS [F] WHERE [F].[email] LIKE ('%hotmail%');
+GO 
 -- 10. 
-SELECT [F].[nome], [F].[email] FROM  [dbo].[Funcionario] AS [F] WHERE [F].[email] LIKE ('%.br') ORDER BY [F].[nome]; 
+SELECT [F].[nome], [F].[email] FROM [dbo].[Funcionario] AS [F] WHERE [F].[email] LIKE ('%.br') ORDER BY [F].[nome];
+GO 
 -- 11. 
-SELECT [F].[nome], [F].[email] FROM  [dbo].[Funcionario] AS [F] WHERE [F].[email] NOT LIKE ('%.com') ORDER BY [F].[nome]; 
+SELECT [F].[nome], [F].[email] FROM [dbo].[Funcionario] AS [F] WHERE [F].[email] NOT LIKE ('%.com') ORDER BY [F].[nome];
+GO 
 -- 12. 
-SELECT [F].[nome], [F].[email] FROM  [dbo].[Funcionario] AS [F] WHERE [F].[email] LIKE ('__r%') ORDER BY [F].[nome]; 
+SELECT [F].[nome], [F].[email] FROM [dbo].[Funcionario] AS [F] WHERE [F].[email] LIKE ('__r%') ORDER BY [F].[nome];
+GO 
 -----------------------------------
 -- Capítulo 4 
 -- 1. 
-SELECT nome, DAY(dataNascto) dia, MONTH(dataNascto) mes,YEAR(dataNascto) ano FROM Funcionario 
+SELECT [F].[nome], (DAY([F].[dataNascto])) AS [diaNacimento], (MONTH([F].[dataNascto])) AS [mesNacimento], (YEAR([F].[dataNascto])) AS [anoNacimento] FROM [dbo].[Funcionario] AS [F]; 
+GO
 -- 2. 
-SELECT DISTINCT DATENAME(MONTH,dataNascto) AS nome_mes FROM Funcionario ORDER BY nome_mes 
+SELECT DISTINCT (DATENAME(MONTH,[F].[dataNascto])) AS [Nome_Mes] FROM [dbo].[Funcionario] AS [F] ORDER BY [Nome_Mes];
+GO
 -- 3. 
-SELECT idFuncionario, nome FROM Funcionario WHERE YEAR(dataNascto)=1987 
+SELECT [F].[idFuncionario], [F].[nome] FROM [dbo].[Funcionario] AS [F] WHERE (YEAR([F].[dataNascto])) = (1987);
+GO
 -- 4. 
-SELECT nome, DAY(dataNascto)FROM Funcionario WHERE MONTH(dataNascto)=4 AND YEAR(dataNascto)=1988 
+SELECT [F].[nome], (DAY([F].[dataNascto])) AS [diaNacimento] FROM [dbo].[Funcionario] AS [F] WHERE (MONTH([F].[dataNascto])) = (4) AND (YEAR([F].[dataNascto])) = (1988) 
+GO
 -- 5. 
-SELECT nome, DATEADD(MONTH, 2, dataNascto)FROM Funcionario 
+SELECT [F].[nome], (DATEADD(MONTH, 2, [F].[dataNascto])) AS [ADD_Nacimento] FROM [dbo].[Funcionario] AS [F];
+GO
 -- 6. 
-SELECT nome, DATEDIFF(YEAR, dataNascto, GETDATE()) FROM Funcionario 
+SELECT [F].[nome], (DATEDIFF(YEAR, [F].[dataNascto], GETDATE())) AS [DIF_Nacimento] FROM [dbo].[Funcionario] AS [F]; 
+GO
 -- 7. 
-SELECT idFuncionario, nome, YEAR(dataNascto)FROM Funcionario WHERE (MONTH(dataNascto) BETWEEN 3 AND 5) AND YEAR(dataNascto)=1990 
+SELECT [F].[idFuncionario], [F].[nome], (YEAR([F].[dataNascto])) AS [dataNacimento] FROM [dbo].[Funcionario] AS [F] WHERE MONTH([F].[dataNascto]) BETWEEN (3) AND (5) AND YEAR([F].[dataNascto]) = (1990); 
+GO
 -- 8. 
-SELECT nome, YEAR(dataNascto)FROM Funcionario WHERE estado=’SP’ 
+SELECT [F].[nome], (YEAR([F].[dataNascto])) AS [dataNascto] FROM [dbo].[Funcionario] AS [F] WHERE [F].[estado] = ('SP'); 
+GO
 -- 9. 
-SELECT nome FROM Funcionario WHERE YEAR(dataNascto)< 1990 
+SELECT [F].[nome] FROM [dbo].[Funcionario] AS [F] WHERE YEAR([F].[dataNascto]) < (1990); 
+GO
 -- 10. 
-SELECT DISTINCT cidade, estado FROM Funcionario WHERE YEAR(dataNascto)> 1989 
+SELECT DISTINCT [F].[cidade],  [F].[estado] FROM [dbo].[Funcionario] AS [F] WHERE YEAR([F].[dataNascto]) > (1989); 
+GO
 -- 11. 
-SELECT * 
-FROM Funcionario 
-WHERE YEAR(dataNascto) IN (1988, 1990) 
+SELECT [F].* FROM [dbo].[Funcionario] AS [F] WHERE YEAR([F].[dataNascto]) IN ((1988), (1990)); 
+GO
 -- 12. 
-SELECT nome FROM Funcionario WHERE DAY(dataNascto)= 30 
-
+SELECT [F].[nome] FROM [dbo].[Funcionario] AS [F] WHERE DAY([F].[dataNascto]) = (30);
+GO
+-----------------------------------
 --Capítulo 5 
 -- 1. 
-SELECT nome, salario+PI()FROM Funcionario 
+SELECT [F].[nome], ([F].[salario] + PI()) AS [Salario+PI] FROM [dbo].[Funcionario] AS [F];
+GO 
 -- 2. 
-SELECT SQRT(DAY(dataNascto))FROM Funcionario WHERE cidade=’Valinhos’ 
+SELECT (SQRT(DAY([F].[dataNascto]))) AS [RAIZ_dataNascto] FROM [dbo].[Funcionario] AS [F] WHERE [F].[cidade] = ('Valinhos'); 
+GO
 -- 3. 
-SELECT LOG(MONTH(dataNascto))FROM Funcionario WHERE YEAR(dataNascto)=1990 
+SELECT (LOG(MONTH(dataNascto))) AS [LOG_dataNascto] FROM [dbo].[Funcionario] AS [F] WHERE YEAR([F].[dataNascto]) = (1990); 
+GO
 -- 4. 
-SELECT nome, DAY(dataNascto)FROM Funcionario WHERE POWER(DAY(dataNascto),3) >= 1000 
+SELECT [F].[nome], (DAY([F].[dataNascto])) AS [DIA_dataNascto] FROM [dbo].[Funcionario] AS [F] WHERE POWER(DAY([F].[dataNascto]),(3)) >= (1000);
+GO
 -- 5. 
-SELECT ROUND((salario * 1.156),0)FROM Funcionario WHERE salario > 1000 
+SELECT (ROUND(([F].[salario] * 1.156),0)) AS [salario] FROM [dbo].[Funcionario] AS [F] WHERE [F].[salario] > (1000);
+GO 
 -- 6. 
-SELECT ABS(1500 -salario)FROM Funcionario 
+SELECT (ABS((1500) - ([F].[salario]))) AS [ABS_Salario] FROM [dbo].[Funcionario] AS [F];
+GO
 -- 7. 
-SELECT idFuncionario, SQRT(idFuncionario)FROM Funcionario WHERE dataNascto < ‘1989-04-01’ 
+SELECT [F].[idFuncionario], (SQRT(idFuncionario)) AS [SQRT_idFuncionario] FROM [dbo].[Funcionario] AS [F] WHERE [F].[dataNascto] < '1989-04-01' 
+GO
 -- 8. 
-SELECT nome, ROUND((salario * 0.65),1)FROM Funcionario 
+SELECT [F].[nome], ROUND((salario * 0.65),1) AS [ROUND_salario] FROM [dbo].[Funcionario] AS [F]; 
+GO
 -- 9. 
-SELECT LOG(idFuncionario)FROM Funcionario 
+SELECT (LOG([F].[idFuncionario])) AS [LOG_idFuncionario] FROM [dbo].[Funcionario] AS [F];  
+GO
 -- 10. 
-SELECT SQRT(idFuncionario)FROM Funcionario 
+SELECT (SQRT([F].[idFuncionario])) AS [SQRT_idFuncionario] FROM [dbo].[Funcionario] AS [F];   
+GO
 -- 11. 
-SELECT POWER(idFuncionario,2)FROM Funcionario 
+SELECT (POWER([F].[idFuncionario],2)) AS [POWER_idFuncionario] FROM [dbo].[Funcionario] AS [F];   
+GO
 -- 12. 
-SELECT ABS(idFuncionario -10) AS valor_abs FROM Funcionario ORDER BY valor_abs DESC 
-
+SELECT (ABS([F].[idFuncionario] - 10)) AS [ABS_idFuncionario] FROM [dbo].[Funcionario] AS [F] ORDER BY [ABS_idFuncionario] DESC;
+GO
+-----------------------------------
 -- Capítulo 6 
 -- 1. 
 SELECT UPPER(nome)FROM Funcionario 
